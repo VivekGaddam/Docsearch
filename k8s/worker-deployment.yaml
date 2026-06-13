@@ -1,0 +1,24 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: research-worker
+spec:
+  replicas: 4
+  selector:
+    matchLabels:
+      app: research-worker
+  template:
+    metadata:
+      labels:
+        app: research-worker
+    spec:
+      containers:
+        - name: worker
+          image: research-workspace-api:latest
+          command: ["python", "-m", "app.workers.tasks"]
+          envFrom:
+            - secretRef:
+                name: research-api-secrets
+            - configMapRef:
+                name: research-api-config
+
