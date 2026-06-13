@@ -1,0 +1,133 @@
+# =========================
+# Python
+# =========================
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+
+# =========================
+# Virtual Environments
+# =========================
+venv/
+env/
+.venv/
+ENV/
+
+# =========================
+# Environment / Secrets
+# =========================
+.env
+.env.*
+*.env
+secrets/
+config.local.yaml
+config.local.yml
+
+# API Keys
+openai_key.txt
+anthropic_key.txt
+
+# =========================
+# Logs
+# =========================
+logs/
+*.log
+*.out
+*.err
+
+# =========================
+# Testing / Coverage
+# =========================
+.pytest_cache/
+.coverage
+htmlcov/
+.mypy_cache/
+.ruff_cache/
+.tox/
+coverage.xml
+
+# =========================
+# Jupyter
+# =========================
+.ipynb_checkpoints/
+
+# =========================
+# IDE / Editor
+# =========================
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# =========================
+# OS files
+# =========================
+.DS_Store
+Thumbs.db
+
+# =========================
+# Databases
+# =========================
+*.db
+*.sqlite3
+*.sqlite
+
+# =========================
+# Agent / LLM specific
+# =========================
+
+# Cached embeddings
+embeddings/
+vector_store/
+chroma_db/
+faiss_index/
+qdrant_storage/
+
+# Model cache
+models/
+cache/
+.huggingface/
+transformers_cache/
+
+# Generated artifacts
+outputs/
+artifacts/
+tmp/
+temp/
+
+# Prompt experiments
+experiments/
+runs/
+
+# LangGraph checkpoints
+checkpoints/
+state_store/
+
+# =========================
+# Docker
+# =========================
+docker-compose.override.yml
+*.pid
+
+# =========================
+# Deployment
+# =========================
+.terraform/
+terraform.tfstate*

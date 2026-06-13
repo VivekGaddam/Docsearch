@@ -1,0 +1,80 @@
+version: "3.9"
+
+services:
+  api:
+    build:
+      context: ./backend
+    command: uvicorn backend:app --host 0.0.0.0 --port 8000 --reload
+    env_file:
+      - ./backend/sample.env
+    volumes:
+      - ./backend:/app
+      - ./storage:/app/storage
+    ports:
+      - "8000:8000"
+    depends_on:
+      - postgres
+      - qdrant
+      - minio
+
+  worker:
+    build:
+      context: ./backend
+    command: uvicorn backend:app --host 0.0.0.0 --port 8100
+    env_file:
+      - ./backend/sample.env
+    volumes:
+      - ./backend:/app
+      - ./storage:/app/storage
+    depends_on:
+      - postgres
+      - qdrant
+      - minio
+
+  postgres:
+    image: postgres:16
+    environment:
+      POSTGRES_DB: research_workspace
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+  qdrant:
+    image: qdrant/qdrant:v1.10.1
+    ports:
+      - "6333:6333"
+      - "6334:6334"
+    volumes:
+      - qdrant_data:/qdrant/storage
+
+  minio:
+    image: minio/minio:latest
+    command: server /data --console-address ":9001"
+    environment:
+      MINIO_ROOT_USER: minioadmin
+      MINIO_ROOT_PASSWORD: minioadmin
+    ports:
+      - "9000:9000"
+      - "9001:9001"
+    volumes:
+      - minio_data:/data
+
+  frontend:
+    build:
+      context: ./frontend
+    command: npm run dev -- --host 0.0.0.0
+    volumes:
+      - ./frontend:/app
+      - /app/node_modules
+    ports:
+      - "5173:5173"
+    depends_on:
+      - api
+
+volumes:
+  postgres_data:
+  qdrant_data:
+  minio_data:
